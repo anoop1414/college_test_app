@@ -9,14 +9,21 @@ class FeedScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Feed'),
       ),
-      body: FeedDetails(),
+      body: FeedCard(),
     );
   }
 }
 
-class FeedDetails extends StatelessWidget {
+class FeedCard extends StatefulWidget {
+
+  @override
+  _FeedCardState createState() => _FeedCardState();
+}
+
+class _FeedCardState extends State<FeedCard> {
   @override
   Widget build(BuildContext context) {
+    
     return Container(
       margin: EdgeInsets.all(7.0),
       child: Column(
@@ -25,9 +32,9 @@ class FeedDetails extends StatelessWidget {
             elevation: 0,
             child: Column(
               children: <Widget>[
-                FeedTopBar(),
-                MiddleFeed(),
-                FeedReactionBar(),
+                feedTopBar(),
+                feedContent(),
+                feedBottomBar(),
               ],
             ),
           )
@@ -35,17 +42,9 @@ class FeedDetails extends StatelessWidget {
       ),
     );
   }
-}
 
-class FeedTopBar extends StatelessWidget {
-  const FeedTopBar({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget feedTopBar() {
     return Padding(
-//      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
       padding: const EdgeInsets.only(left: 18, right: 4, top: 8, bottom: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -103,16 +102,13 @@ class FeedTopBar extends StatelessWidget {
       ),
     );
   }
-}
 
-class MiddleFeed extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  Widget feedContent() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
       child: Container(
         height: 220,
-        width: double.infinity,
+        width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             border: Border.all(width: 0),
             borderRadius: BorderRadius.circular(10),
@@ -124,11 +120,8 @@ class MiddleFeed extends StatelessWidget {
       ),
     );
   }
-}
 
-class FeedReactionBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  Widget feedBottomBar() {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
       child: Row(
